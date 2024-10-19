@@ -11,6 +11,7 @@ const userSchema = new Schema({
 })
 
 const messageSchema = new Schema({
+    id: String,
     message: String
 })
 
