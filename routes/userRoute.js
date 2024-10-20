@@ -24,6 +24,7 @@ router.post("/getuserdata", async (req, res) => {
             if(username === user.username && password === user.password){
                 res.status(200).send({ message: "User data retrieved successfully", data: user });
                 window.location.href = "";
+                localStorage.setItem("myusername", username);
             }else{
                 res.status(404).send({message: "username or password is incorrect!"});
             }
@@ -49,12 +50,13 @@ router.post("/sendmessage", async (req, res) => {
     }
 })
 
+
 router.get("/sendingmessage", async (req, res) => {
     try{
         const { receiver } = req.query;
-        const message = await messagedata.findOne({id});
+        const message = await messagedata.findOne({receiver});
         if (message){
-            res.status(200).json({message: message});
+            res.status(200).json({messages: message});
         }
     }catch (error){
         console.log(error);

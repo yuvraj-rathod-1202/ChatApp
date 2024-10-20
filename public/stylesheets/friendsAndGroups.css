@@ -42,6 +42,8 @@ body {
     cursor: pointer;
     display: block;
     transition: background-color 0.3s ease;
+    width: 100%; /* Set the width of buttons to 100% of the container */
+    box-sizing: border-box; /* Ensures padding and borders are included in the width */
 }
 
 .chat-item.friend {
