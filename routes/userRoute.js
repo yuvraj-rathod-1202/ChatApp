@@ -51,7 +51,7 @@ router.post("/sendmessage", async (req, res) => {
 
 router.get("/sendingmessage", async (req, res) => {
     try{
-        const { id } = req.query;
+        const { receiver } = req.query;
         const message = await messagedata.findOne({id});
         if (message){
             res.status(200).json({message: message});

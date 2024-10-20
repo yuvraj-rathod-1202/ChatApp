@@ -6,8 +6,9 @@ document.getElementById("submit").addEventListener("click", () => {
             'Content-Type': 'application/json' 
         },
         body: JSON.stringify({
-            id: 12345678911,
-            message: document.getElementById("send").value
+            sender: ,
+            message: document.getElementById("send").value,
+            receiver: 
         })
     }).then(response => response.json())
     .then(data => console.log(data))

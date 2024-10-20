@@ -1,0 +1,57 @@
+body {
+    background-color: #f8f9fa;
+}
+
+/* Container for Friends & Groups */
+.friends-groups-container {
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.friends-groups-body {
+    padding: 20px;
+    background-color: #e9ecef;
+    height: 500px; /* Optional height */
+    overflow-y: auto;
+}
+
+.chat-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chat-item {
+    background-color: #007bff;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.chat-item.friend {
+    background-color: white;
+}
+
+.chat-item.group {
+    background-color: white;
+}
+
+.chat-item:hover {
+    background-color: #0056b3;
+}
