@@ -8,6 +8,7 @@ document.getElementById("signUpDone").addEventListener("click", () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            id: `${document.getElementById('username').value}-${Date.now()}`,
             name: document.getElementById('name').value,
             username: document.getElementById('username').value,
             password: document.getElementById('password').value,
