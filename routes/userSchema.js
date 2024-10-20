@@ -11,7 +11,9 @@ const userSchema = new Schema({
 })
 
 const messageSchema = new Schema({
-    message: String
+    sender: String,
+    message: String,
+    receiver: String
 })
 
 const senddata = mongoose.model('senddata', userSchema);

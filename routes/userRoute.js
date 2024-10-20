@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { senddata, message } = require("./userSchema")
+const { senddata, messagedata } = require("./userSchema")
 
 router.post("/storeuserdata", async (req, res) => {
     try{
@@ -34,6 +34,30 @@ router.post("/getuserdata", async (req, res) => {
     }catch (error) {
         console.error("Error retrieving user data", error);
         res.status(500).send({ message: "Error retrieving user data" });
+    }
+})
+
+router.post("/sendmessage", async (req, res) => {
+    try{
+        const newMessage = await messagedata({...req.body});
+
+        await newMessage.save()
+        res.status(200).send({message: "user data saved succesfully", data: newMessage});
+
+    }catch(error){
+        console.error("user data not saved", error);
+    }
+})
+
+router.get("/sendingmessage", async (req, res) => {
+    try{
+        const { receiver } = req.query;
+        const message = await messagedata.findOne({id});
+        if (message){
+            res.status(200).json({message: message});
+        }
+    }catch (error){
+        console.log(error);
     }
 })
 
