@@ -11,32 +11,28 @@ router.post("/storeuserdata", async (req, res) => {
     }catch (error){
         console.error("user data not saved", error);
     };
-})
+});
 
 router.post("/getuserdata", async (req, res) => {
-    try{
-            const { username, password } = req.body;
+    try {
+        const { username, password } = req.body;
 
-            const user = await senddata.findOne({password})
+        // Query based on both username and password
+        const user = await senddata.findOne({ username, password });
 
-
-        if (user){
-            if(username === user.username && password === user.password){
-                res.status(200).send({ message: "User data retrieved successfully", data: user });
-                window.location.href = "";
-                localStorage.setItem("myusername", username);
-            }else{
-                res.status(404).send({message: "username or password is incorrect!"});
-            }
-        }else{
-            res.status(404).send({ message: "User not found" });
+        if (user) {
+            // Return success if the user is found
+            res.status(200).send({ message: "User data retrieved successfully", data: user });
+        } else {
+            // Return a 401 Unauthorized error if credentials are wrong
+            res.status(401).send({ message: "Invalid username or password!" });
         }
-        
-    }catch (error) {
-        console.error("Error retrieving user data", error);
+    } catch (error) {
+        console.error("Error retrieving user data:", error);
+        // Return 500 if any server-side error occurs
         res.status(500).send({ message: "Error retrieving user data" });
     }
-})
+});
 
 router.post("/sendmessage", async (req, res) => {
     try{
@@ -48,7 +44,7 @@ router.post("/sendmessage", async (req, res) => {
     }catch(error){
         console.error("user data not saved", error);
     }
-})
+});
 
 
 router.get("/sendingmessage", async (req, res) => {
@@ -61,6 +57,6 @@ router.get("/sendingmessage", async (req, res) => {
     }catch (error){
         console.log(error);
     }
-})
+});
 
 module.exports = router;
