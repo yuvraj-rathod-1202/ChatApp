@@ -11,32 +11,25 @@ router.post("/storeuserdata", async (req, res) => {
     }catch (error){
         console.error("user data not saved", error);
     };
-})
+});
 
-router.post("/getuserdata", async (req, res) => {
-    try{
-            const { username, password } = req.body;
+router.get("/getuserdata", async (req, res) => {
+    try {
+        const username = req.query.username;
+        const password = req.query.password;
 
-            const user = await senddata.findOne({password})
+        const user = await senddata.findOne({ username, password });
 
-
-        if (user){
-            if(username === user.username && password === user.password){
-                res.status(200).send({ message: "User data retrieved successfully", data: user });
-                window.location.href = "";
-                localStorage.setItem("myusername", username);
-            }else{
-                res.status(404).send({message: "username or password is incorrect!"});
-            }
-        }else{
-            res.status(404).send({ message: "User not found" });
+        if (user) {
+            res.status(200).json({ message: "User data retrieved successfully", data: user });
+        } else {
+            res.status(401).send({ message: "Invalid username or password!" });
         }
-        
-    }catch (error) {
-        console.error("Error retrieving user data", error);
+    } catch (error) {
+        console.error("Error retrieving user data:", error);
         res.status(500).send({ message: "Error retrieving user data" });
     }
-})
+});
 
 router.post("/sendmessage", async (req, res) => {
     try{
@@ -48,7 +41,7 @@ router.post("/sendmessage", async (req, res) => {
     }catch(error){
         console.error("user data not saved", error);
     }
-})
+});
 
 
 router.get("/sendingmessage", async (req, res) => {
@@ -61,6 +54,6 @@ router.get("/sendingmessage", async (req, res) => {
     }catch (error){
         console.log(error);
     }
-})
+});
 
 module.exports = router;
