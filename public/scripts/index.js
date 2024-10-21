@@ -1,8 +1,8 @@
 document.getElementById("signUp").addEventListener("click", () => {
     window.location.href = "http://127.0.0.1:5500/ChatApp/views/signUp.html";
 });
-
-document.getElementById("login").addEventListener("click", () => {
+console.log("click on button");
+document.getElementById("login").addEventListener("click", async () => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
@@ -11,36 +11,22 @@ document.getElementById("login").addEventListener("click", () => {
         return;
     }
 
-    fetch(`http://localhost:5000/api/user/getuserdata`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    })
-    .then(response => {
-        // Check if the response status is OK before parsing JSON
-        if (response.ok) {
-            return response.json();  // Parse JSON if successful
-        } else {
-            return response.json().then(data => {
-                // Handle login failure by showing an error message
-                alert(data.message || "Invalid username or password.");
-                throw new Error("Login failed");
-            });
+    try{
+        const response = await fetch(`http://localhost:5000/api/user/getuserdata?username=${username}&password=${password}`);
+        if(!response.ok){
+            alert(`HTTP error! Status: ${response.status} username or password is incorrect`);
+        }else{
+
+        const data = await response.json();
+
+        console.log(data);
+        localStorage.setItem("myusername",data.data.username);
+        console.log(localStorage.getItem("myusername"));
+        window.location.href = "http://127.0.0.1:5500/ChatApp/views/friendsAndGroups.html";
         }
-    })
-    .then(data => {
-        // Only runs if login is successful (response was ok)
-        console.log("Login successful:", data);
-        localStorage.setItem("myusername", username);  // Store username in localStorage
-        window.location.href = "http://127.0.0.1:5500/ChatApp/views/friendsAndGroups.html";  // Navigate to the friends and groups page
-    })
-    .catch(error => {
-        console.error("Error during login process:", error);
-        // Don't show another alert here since the error is already handled
-    });
-});
+    }
+    catch (error) {
+        console.error('Fetch error:', error);
+    }
+
+})

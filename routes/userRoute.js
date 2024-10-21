@@ -13,23 +13,20 @@ router.post("/storeuserdata", async (req, res) => {
     };
 });
 
-router.post("/getuserdata", async (req, res) => {
+router.get("/getuserdata", async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const username = req.query.username;
+        const password = req.query.password;
 
-        // Query based on both username and password
         const user = await senddata.findOne({ username, password });
 
         if (user) {
-            // Return success if the user is found
-            res.status(200).send({ message: "User data retrieved successfully", data: user });
+            res.status(200).json({ message: "User data retrieved successfully", data: user });
         } else {
-            // Return a 401 Unauthorized error if credentials are wrong
             res.status(401).send({ message: "Invalid username or password!" });
         }
     } catch (error) {
         console.error("Error retrieving user data:", error);
-        // Return 500 if any server-side error occurs
         res.status(500).send({ message: "Error retrieving user data" });
     }
 });
