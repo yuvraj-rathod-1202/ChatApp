@@ -14,7 +14,7 @@ document.getElementById("submit").addEventListener("click", () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            sender: localStorage.getItem("myusername"),
+            sender: "yuvraj",
             message: document.getElementById("send").value,
             receiver: getQueryparam('forg')  // Make sure 'forg' is the correct param
         })
@@ -33,25 +33,29 @@ async function fetchMessages() {
         const response = await fetch(`http://localhost:5000/api/user/sendingmessage?receiver=${localStorage.getItem("myusername")}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        }else{
 
-        const data = await response.json();
-        console.log(data);
+            const data = await response.json();
+            console.log(data);
 
-        const element = document.getElementById("gettingmessage");
-        if (element) {
-            // Assuming 'data.messages' is an array of messages
-            
-            if (data.messages.sender === receiverUsername) {
-                element.innerHTML += `
-                    <div class="message-box bg-secondary text-white">
-                        ${data.messages.message}  <!-- Displaying each message -->
-                    </div>
-                `;
-            }
-           
-        } else {
+            const element = document.getElementById("gettingmessage");
+            if (element) {
+                // Assuming 'data.messages' is an array of messages
+                if (data.messages.sender === receiverUsername) {
+                    element.innerHTML += `
+                        <div class="message-box bg-secondary text-white">
+                            ${data.messages.message}  <!-- Displaying each message -->
+                        </div>
+                    `;
+
+                    const responsem = await fetch(`http://localhost:5000/api/user/deletemessage?id=${data.messages._id}`)
+                    if (!responsem.ok) {
+                        alert(`HTTP error! Status: ${response.status}`);
+                    }
+                }
+            } else {
             console.error('Element with ID "gettingmessage" not found');
+            }
         }
     } catch (error) {
         console.error('Fetch error:', error);  // Log the error if something goes wrong

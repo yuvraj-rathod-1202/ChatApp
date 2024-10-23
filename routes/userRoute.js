@@ -56,4 +56,20 @@ router.get("/sendingmessage", async (req, res) => {
     }
 });
 
+
+router.delete("/deletemessage", async(req, res) => {
+    try{
+        const { id } = req.query;
+        const deletemessage = await messagedata.findByIdAndDelete(id);
+          
+        if (!deletemessage) {
+            return res.status(404).send({ message: 'Item not found' });
+        }
+      
+        res.status(200).send({ message: 'Item deleted successfully', deletemessage });
+    }catch (error) {
+        res.status(500).send({ message: 'Error deleting item', error });
+    }
+});
+
 module.exports = router;
