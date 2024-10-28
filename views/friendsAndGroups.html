@@ -14,14 +14,15 @@
 
         <div class="friends-groups-body">
             <ul class="chat-list">
-                <button type="button" class="chat-item friend" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=yuvraj'">yuvraj</button>
-                <button type="button" class="chat-item friend" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=rr'">rr</button>
-                <button type="button" class="chat-item friend" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=Charbuttone'">Charbuttone</button>
-                <button type="button" class="chat-item group" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=Family'">Family</button>
-                <button type="button" class="chat-item group" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=Work-Buddies'">Work-Buddies</button>
-                <button type="button" class="chat-item group" onclick="location.href='http://127.0.0.1:5500/ChatApp/views/chatPage.html?forg=Gaming-Group'">Gaming-Group</button>
+                <button type="button" class="chat-item friend" id ="yuvraj">yuvraj</button>
+                <button type="button" class="chat-item friend" id ="rr">rr</button>
+                <button type="button" class="chat-item friend" onclick="renderPage(this)">Charbuttone</button>
+                <button type="button" class="chat-item group" onclick="renderPage(this)">Family</button>
+                <button type="button" class="chat-item group" onclick="renderPage(this)">Work-Buddies</button>
+                <button type="button" class="chat-item group" onclick="renderPage(this)">Gaming-Group</button>
             </ul>
-        </div>
+      </div>
     </div>
+    <script type="module" src="../public/scripts/friendsAndGroups.js"></script>
 </body>
 </html>

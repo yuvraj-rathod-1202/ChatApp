@@ -24,7 +24,7 @@ const userSchema = new Schema({
 
 const messageSchema = new Schema({
     sender: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'senddata',  // references the user schema
         required: true
     },
@@ -33,7 +33,7 @@ const messageSchema = new Schema({
         required: true
     },
     receiver: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'senddata',  // references the user schema
         required: true
     }

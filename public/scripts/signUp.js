@@ -37,7 +37,7 @@ document.getElementById("signUpDone").addEventListener("click", (event) => {
     .then(data => {
         console.log(data);
         
-        window.location.href = "http://127.0.0.1:5500/ChatApp/views/index.html";
+        window.location.href = "http://127.0.0.1:5500/views/index.html";
     })
     .catch(error => {
         console.error("Error during sign-up process:", error);
