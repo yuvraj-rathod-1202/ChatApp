@@ -30,6 +30,7 @@ body {
     border-radius: 10px;
     max-width: 75%;
     margin-bottom: 10px;
+    width: auto;
     display: inline-block;
 }
 .input-area {

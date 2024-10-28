@@ -24,6 +24,10 @@ io.on('connection', (socket) => {
         socket.broadcast.emit("mes", data.message)
     })
 
+    socket.on("server", (sender, message, reciever)=>{
+        io.emit(`${reciever}`, message, sender)
+    })
+
     socket.on('disconnect', () => {
         console.log('User disconnected:', socket.id);
     });

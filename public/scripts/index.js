@@ -22,7 +22,8 @@ document.getElementById("login").addEventListener("click", async () => {
         console.log(data);
         localStorage.setItem("myusername",data.data.username);
         console.log(localStorage.getItem("myusername"));
-        window.location.href = "http://127.0.0.1:5500/views/friendsAndGroups.html";
+        
+        window.location.href = `http://127.0.0.1:5500/views/friendsAndGroups.html?user=${data.data.username}`;
         }
     }
     catch (error) {

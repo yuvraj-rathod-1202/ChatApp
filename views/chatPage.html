@@ -18,15 +18,17 @@
         <!-- Chat Body -->
         <div class="chat-body" id="chatBody">
             <div class="row">
+                <div id="messages">
                 <div class="col-12 text-end">
-                    <div class="message-box bg-primary text-white">
+                    <div class="message-box bg-primary text-white col-12 text-end">
                         This is a message aligned to the right.
                     </div>
                 </div>
-                <div class="col-12 text-start" id="gettingmessage">
-                    <div class="message-box bg-secondary text-white">
+                <div class="col-12 text-start">
+                    <div class="message-box bg-secondary text-white col-12 text-start">
                         This is a message aligned to the left.
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -47,23 +49,38 @@
     <script src="../public/scripts/chatPage.js"></script>
     <script src="../node_modules/socket.io/client-dist/socket.io.js"></script>
     <script>
+
+        function getQueryparam(param) {
+            const urlparams = new URLSearchParams(window.location.search);
+            return urlparams.get(param);
+        }
+
+        console.log("Receiver (forg) Query Param:", getQueryparam('forg'));
+        const forg = getQueryparam('forg');
+        const myusername = getQueryparam('user');
+
+
         const socket = io("http://localhost:5000");
 
         socket.on("connect", () => {
             console.log("User connected:", socket.id);
 
         });
-        socket.on("mes", (msg) => {
-            const element = document.getElementById("gettingmessage");
+        socket.on(`${myusername}`, (msg, sender) => {
+            const element = document.getElementById("messages");
 
-            if (element) {
+            if (element && sender == forg) {
                 element.innerHTML += `
-                    <div class="message-box bg-secondary text-white">
-                        ${msg}
+                    <div class="col-12 text-start">
+                        <div class="message-box bg-secondary text-white col-12 text-start">
+                            ${msg}
+                        </div>
                     </div>
                 `;
             }
         });
+
+        
 
         // Event listener for the submit button
         document.getElementById("submit").addEventListener("click", () => {
@@ -72,7 +89,36 @@
 
             // Emit message if it's not empty
             if (message.trim() !== "") {
-                socket.emit("chat", { message, sender: socket.id }); // Send message with sender ID
+                socket.emit("server", myusername, message, forg)  // Send message with sender ID
+
+                fetch("http://localhost:5000/api/user/sendmessage", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        sender: myusername,
+                        message: message,
+                        receiver: forg   //Make sure 'forg' is the correct param
+                    })
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error))
+
+                const element = document.getElementById("messages");
+
+                if (element) {
+                    element.innerHTML += `
+                        <div class="col-12 text-end">
+                            <div class="message-box bg-primary text-white col-12 text-end">
+                                ${message}
+                            </div>
+                        </div>
+                    `;
+                }
+
+
                 messageInput.value = ""; // Clear the input after sending
             }
         });
