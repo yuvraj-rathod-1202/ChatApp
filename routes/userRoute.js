@@ -46,8 +46,13 @@ router.post("/sendmessage", async (req, res) => {
 
 router.get("/sendingmessage", async (req, res) => {
     try{
-        const { receiver } = req.query;
-        const message = await messagedata.findOne({receiver});
+        const { sender, receiver } = req.query;
+        const message = await messagedata.find({
+            $or: [
+                {sender: sender},
+                {receiver: receiver}
+            ]
+        });
         if (message){
             res.status(200).json({messages: message});
         }

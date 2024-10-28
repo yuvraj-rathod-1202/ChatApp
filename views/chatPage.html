@@ -48,6 +48,7 @@
 
     <script src="../public/scripts/chatPage.js"></script>
     <script src="../node_modules/socket.io/client-dist/socket.io.js"></script>
+    <script src="../public/scripts/chatPage.js"></script>
     <script>
 
         function getQueryparam(param) {
@@ -71,6 +72,7 @@
 
             if (element && sender == forg) {
                 element.innerHTML += `
+                    
                     <div class="col-12 text-start">
                         <div class="message-box bg-secondary text-white col-12 text-start">
                             ${msg}
@@ -80,6 +82,8 @@
             }
         });
 
+
+        
         
 
         // Event listener for the submit button
