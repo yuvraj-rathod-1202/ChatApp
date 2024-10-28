@@ -1,8 +1,11 @@
+const urlParams = new URLSearchParams(window.location.search);
+const user = urlParams.get("user");
+const receiver = urlParams.get("forg");
+document.getElementById("friendName").innerText = receiver;
+
 async function fetchMessages() {
     try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const user = urlParams.get("user");
-        const receiver = urlParams.get("forg");
+        
 
         const response = await fetch(`http://localhost:5000/api/user/sendingmessage?sender=${user}&receiver=${user}`);
         if (!response.ok) {
@@ -42,6 +45,24 @@ async function fetchMessages() {
         console.log('Fetch error:', error);
     }
 }
+
+
+
+
+document.getElementById("clearChat").addEventListener("click", async ()=>{
+    if(confirm("Are you sure you want to delete the chat?")){
+        try{
+            const response =  await fetch(`http://localhost:5000/api/user/deleteallchat?sender=${user}&receiver=${user}`);
+            if(!response.ok){
+                alert("error in deletion", response);
+            }
+                
+        }catch(error){
+            alert("error", error);
+        }
+    }
+})
+
 
 // Call the function to fetch messages
 fetchMessages();

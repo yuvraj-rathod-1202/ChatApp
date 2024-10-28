@@ -90,4 +90,24 @@ router.get("/findfriend", async (req, res) => {
     }
 });
 
+router.delete("/deleteallchat", async (req, res)=>{
+    const { sender, receiver } = req.query;
+    console.log("123")
+    try{
+    const response = await messagedata.deleteMany({
+        $or: [
+            {sender: sender},
+            {receiver: receiver}
+        ]
+    });
+    console.log(response);
+    if (!response.ok){
+        res.status(404).send("messages not found");
+    }
+    
+    }catch(error){
+        res.status(500).send("error", error);
+    }
+})
+
 module.exports = router;

@@ -53,3 +53,13 @@ body {
 .text-align-left{
     text-align: left;
 }
+.clear-chat-btn {
+    background-color: #343a40 !important; /* Ensure dark background */
+    color: #ffffff !important; /* White text */
+    border: none;
+}
+.clear-chat-btn:hover {
+    background-color: #23272b !important; /* Darker on hover */
+}
+
+
