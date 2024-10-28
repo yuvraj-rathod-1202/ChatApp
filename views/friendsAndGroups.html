@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends & Groups</title>
     <link rel="stylesheet" href="../public/stylesheets/friendsAndGroups.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="friends-groups-container">
         <div class="header">
             Friends & Groups
         </div>
+        <div class="search-container">
+        <input type="text" placeholder="Search friends..." id="searchinput" class="search-input">
+        <span class="search-icon" id="searchicon">&#128269;</span> <!-- Unicode search icon -->
+        </div>
 
         <div class="friends-groups-body">
             <ul class="chat-list">
                 <button type="button" class="chat-item friend" id ="yuvraj">yuvraj</button>
-                <button type="button" class="chat-item friend" id ="rr">rr</button>
-                <button type="button" class="chat-item friend" onclick="renderPage(this)">Charbuttone</button>
-                <button type="button" class="chat-item group" onclick="renderPage(this)">Family</button>
-                <button type="button" class="chat-item group" onclick="renderPage(this)">Work-Buddies</button>
-                <button type="button" class="chat-item group" onclick="renderPage(this)">Gaming-Group</button>
+                <!-- <button type="button" class="chat-item friend" id ="rr">rr</button> -->
             </ul>
-      </div>
+            <ul class="chat-list" id="friendsList">
+            </ul>
+        </div>
+        <div class="text-start">
+            <button type="button" class="btn btn-primary" id="clearFriendList">Clear Friends List</button>
+        </div>
     </div>
     <script type="module" src="../public/scripts/friendsAndGroups.js"></script>
 </body>

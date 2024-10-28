@@ -43,7 +43,6 @@ router.post("/sendmessage", async (req, res) => {
     }
 });
 
-
 router.get("/sendingmessage", async (req, res) => {
     try{
         const { sender, receiver } = req.query;
@@ -61,7 +60,6 @@ router.get("/sendingmessage", async (req, res) => {
     }
 });
 
-
 router.delete("/deletemessage", async(req, res) => {
     try{
         const { id } = req.query;
@@ -74,6 +72,21 @@ router.delete("/deletemessage", async(req, res) => {
         res.status(200).send({ message: 'Item deleted successfully', deletemessage });
     }catch (error) {
         res.status(500).send({ message: 'Error deleting item', error });
+    }
+});
+
+router.get("/findfriend", async (req, res) => {
+    try{
+        const { friend } = req.query;
+
+        const isUserExist = await senddata.findOne({username: friend});
+        if (isUserExist){
+            res.status(200).send({ message: "user find succesfully"});
+        }else{
+            res.status(404).send("user not found");
+        }
+    }catch(error){
+        res.status(500).send({ message: "Error retrieving user data" });
     }
 });
 
