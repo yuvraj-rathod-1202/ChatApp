@@ -7,36 +7,45 @@ body {
     margin: 0;
     background-color: #f4f4f4;
 }
+
 .container {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .container h2 {
     text-align: center;
     margin-bottom: 20px;
 }
+
 .form-group {
     margin-bottom: 15px;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 5px;
 }
-.form-group input, .form-group select {
+
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .form-group select {
     cursor: pointer;
 }
+
 .btn-container {
     text-align: center;
 }
+
 .btn {
     padding: 10px 20px;
     border: none;

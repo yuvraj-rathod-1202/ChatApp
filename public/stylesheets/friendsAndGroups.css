@@ -23,7 +23,8 @@ body {
 .friends-groups-body {
     padding: 20px;
     background-color: #e9ecef;
-    height: 500px; /* Optional height */
+    height: 500px;
+    /* Optional height */
     overflow-y: auto;
 }
 
@@ -42,8 +43,10 @@ body {
     cursor: pointer;
     display: block;
     transition: background-color 0.3s ease;
-    width: 100%; /* Set the width of buttons to 100% of the container */
-    box-sizing: border-box; /* Ensures padding and borders are included in the width */
+    width: 100%;
+    /* Set the width of buttons to 100% of the container */
+    box-sizing: border-box;
+    /* Ensures padding and borders are included in the width */
 }
 
 .chat-item.friend {
@@ -68,7 +71,8 @@ body {
 .search-container {
     display: flex;
     align-items: right;
-    gap: 5px; /* Spacing between the text box and icon */
+    gap: 5px;
+    /* Spacing between the text box and icon */
 }
 
 .search-input {
@@ -77,7 +81,8 @@ body {
     border-radius: 4px;
     border: 1px solid #ccc;
     outline: none;
-    width: 200px; /* Adjust width as needed */
+    width: 200px;
+    /* Adjust width as needed */
 }
 
 .search-icon {

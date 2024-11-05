@@ -5,7 +5,7 @@ document.getElementById("friendName").innerText = receiver;
 
 async function fetchMessages() {
     try {
-        
+
 
         const response = await fetch(`http://localhost:5000/api/user/sendingmessage?sender=${user}&receiver=${user}`);
         if (!response.ok) {
@@ -27,7 +27,7 @@ async function fetchMessages() {
                             </div>
                         `;
                     }
-                    else if((msg.sender === user && msg.receiver === receiver)){
+                    else if ((msg.sender === user && msg.receiver === receiver)) {
                         element.innerHTML += `
                             <div class="col-12 text-end">
                             <div class="message-box bg-primary text-white col-12 text-end">
@@ -49,15 +49,15 @@ async function fetchMessages() {
 
 
 
-document.getElementById("clearChat").addEventListener("click", async ()=>{
-    if(confirm("Are you sure you want to delete the chat?")){
-        try{
-            const response =  await fetch(`http://localhost:5000/api/user/deleteallchat?sender=${user}&receiver=${user}`);
-            if(!response.ok){
+document.getElementById("clearChat").addEventListener("click", async () => {
+    if (confirm("Are you sure you want to delete the chat?")) {
+        try {
+            const response = await fetch(`http://localhost:5000/api/user/deleteallchat?sender=${user}&receiver=${user}`);
+            if (!response.ok) {
                 alert("error in deletion", response);
             }
-                
-        }catch(error){
+
+        } catch (error) {
             alert("error", error);
         }
     }

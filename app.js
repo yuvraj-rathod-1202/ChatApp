@@ -20,11 +20,11 @@ app.use("/api/user", router);
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
 
-    socket.on("chat", (data)=>{
+    socket.on("chat", (data) => {
         socket.broadcast.emit("mes", data.message)
     })
 
-    socket.on("server", (sender, message, reciever)=>{
+    socket.on("server", (sender, message, reciever) => {
         io.emit(`${reciever}`, message, sender)
     })
 
