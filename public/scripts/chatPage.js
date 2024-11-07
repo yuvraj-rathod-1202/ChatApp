@@ -1,6 +1,6 @@
-const urlParams = new URLSearchParams(window.location.search);
-const user = urlParams.get("user");
-const receiver = urlParams.get("forg");
+const urlParam = new URLSearchParams(window.location.search);
+const user = urlParam.get("user");
+const receiver = urlParam.get("forg");
 document.getElementById("friendName").innerText = receiver;
 
 async function fetchMessages() {
@@ -53,8 +53,11 @@ document.getElementById("clearChat").addEventListener("click", async () => {
     if (confirm("Are you sure you want to delete the chat?")) {
         try {
             const response = await fetch(`http://localhost:5000/api/user/deleteallchat?sender=${user}&receiver=${user}`);
+            console.log(response);
             if (!response.ok) {
                 alert("error in deletion", response);
+            }else{
+                console.log("message deleted sucessfully", response);
             }
 
         } catch (error) {

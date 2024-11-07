@@ -90,9 +90,18 @@
 
 
 
+        document.getElementById("send").addEventListener("keydown", (e) => {
 
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+
+            }
+        })
         // Event listener for the submit button
-        document.getElementById("submit").addEventListener("click", () => {
+
+        document.getElementById("submit").addEventListener("click", sendMessage())
+        function sendMessage() {
             const messageInput = document.getElementById("send");
             const message = messageInput.value;
 
@@ -130,7 +139,8 @@
 
                 messageInput.value = ""; // Clear the input after sending
             }
-        });
+        }
+
 
         // Listen for incoming chat messages and display them
 

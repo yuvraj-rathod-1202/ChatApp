@@ -101,8 +101,10 @@ router.delete("/deleteallchat", async (req, res) => {
             ]
         });
         console.log(response);
-        if (!response.ok) {
+        if (response.acknowledged === false) {
             res.status(404).send("messages not found");
+        }else{
+            res.status(200).json({message: "message deleted succesfully", response: response});
         }
 
     } catch (error) {
