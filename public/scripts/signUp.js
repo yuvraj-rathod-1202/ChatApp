@@ -1,9 +1,9 @@
 console.log("sending");
 
 document.getElementById("signUpDone").addEventListener("click", (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    
+
     const name = document.getElementById('name').value;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -33,13 +33,13 @@ document.getElementById("signUpDone").addEventListener("click", (event) => {
             country: country
         })
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        
-        window.location.href = "http://127.0.0.1:5500/views/index.html";
-    })
-    .catch(error => {
-        console.error("Error during sign-up process:", error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            window.location.href = "http://127.0.0.1:5500/views/index.html";
+        })
+        .catch(error => {
+            console.error("Error during sign-up process:", error);
+        });
 });

@@ -3,12 +3,12 @@ const router = express.Router();
 const { senddata, messagedata } = require("./userSchema")
 
 router.post("/storeuserdata", async (req, res) => {
-    try{
-        const newUser = await senddata({...req.body});
+    try {
+        const newUser = await senddata({ ...req.body });
 
         await newUser.save();
-        res.status(200).send({message: "user data saved succesfully", data: newUser});
-    }catch (error){
+        res.status(200).send({ message: "user data saved succesfully", data: newUser });
+    } catch (error) {
         console.error("user data not saved", error);
     };
 });
@@ -32,62 +32,84 @@ router.get("/getuserdata", async (req, res) => {
 });
 
 router.post("/sendmessage", async (req, res) => {
-    try{
-        const newMessage = await messagedata({...req.body});
+    try {
+        const newMessage = await messagedata({ ...req.body });
 
         await newMessage.save()
-        res.status(200).send({message: "user data saved succesfully", data: newMessage});
+        res.status(200).send({ message: "user data saved succesfully", data: newMessage });
 
-    }catch(error){
+    } catch (error) {
         console.error("user data not saved", error);
     }
 });
 
 router.get("/sendingmessage", async (req, res) => {
-    try{
+    try {
         const { sender, receiver } = req.query;
         const message = await messagedata.find({
             $or: [
-                {sender: sender},
-                {receiver: receiver}
+                { sender: sender },
+                { receiver: receiver }
             ]
         });
-        if (message){
-            res.status(200).json({messages: message});
+        if (message) {
+            res.status(200).json({ messages: message });
         }
-    }catch (error){
+    } catch (error) {
         console.log(error);
     }
 });
 
-router.delete("/deletemessage", async(req, res) => {
-    try{
+router.delete("/deletemessage", async (req, res) => {
+    try {
         const { id } = req.query;
         const deletemessage = await messagedata.findByIdAndDelete(id);
-          
+
         if (!deletemessage) {
             return res.status(404).send({ message: 'Item not found' });
         }
-      
+
         res.status(200).send({ message: 'Item deleted successfully', deletemessage });
-    }catch (error) {
+    } catch (error) {
         res.status(500).send({ message: 'Error deleting item', error });
     }
 });
 
 router.get("/findfriend", async (req, res) => {
-    try{
+    try {
         const { friend } = req.query;
 
-        const isUserExist = await senddata.findOne({username: friend});
-        if (isUserExist){
-            res.status(200).send({ message: "user find succesfully"});
-        }else{
+        const isUserExist = await senddata.findOne({ username: friend });
+        if (isUserExist) {
+            res.status(200).send({ message: "user find succesfully" });
+        } else {
             res.status(404).send("user not found");
         }
-    }catch(error){
+    } catch (error) {
         res.status(500).send({ message: "Error retrieving user data" });
     }
 });
+
+router.delete("/deleteallchat", async (req, res) => {
+    const { sender, receiver } = req.query;
+    console.log("123")
+    try {
+        const response = await messagedata.deleteMany({
+            $or: [
+                { sender: sender },
+                { receiver: receiver }
+            ]
+        });
+        console.log(response);
+        if (response.acknowledged === false) {
+            res.status(404).send("messages not found");
+        }else{
+            res.status(200).json({message: "message deleted succesfully", response: response});
+        }
+
+    } catch (error) {
+        res.status(500).send("error", error);
+    }
+})
 
 module.exports = router;
